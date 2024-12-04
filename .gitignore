@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-
+/.venv
 /public/hot
 /public/storage
 /public/media

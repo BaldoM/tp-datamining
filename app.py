@@ -87,7 +87,9 @@ if uploaded_file is not None:
     new_data = []
 
     for col in X.columns:
-        if col == 'ETATCIVIL':  # Exemple d'une colonne catégorique
+        if col == 'DERNIER_AVACEMENT_EN_GRADE' or col == 'DATENAISSA' or col == 'DATEENGAGE':
+            continue
+        if col == 'ETATCIVIL':
             options = ['Célibataire', 'Marié(e)', 'Divorcé(e)', 'Veuf/Veuve']
             value = st.selectbox(f"Entrez une valeur pour {col}", options)
             new_data.append(options.index(value))  # Convertir en index numérique
@@ -95,6 +97,16 @@ if uploaded_file is not None:
         elif col == 'SEXE':  # Sexe : 0 = Féminin, 1 = Masculin
             value = st.radio(f"Entrez une valeur pour {col}", options=['Féminin', 'Masculin'])
             new_data.append(0 if value == 'Féminin' else 1)
+
+        elif col == 'GRADE':
+            options = sorted(X[col].unique())
+            value = st.selectbox(f"Entrez une valeur pour {col}", options)
+            new_data.append(value)
+
+        elif col == 'CITE':
+            options = sorted(X[col].unique())
+            value = st.selectbox(f"Entrez une valeur pour {col}", options)
+            new_data.append(value)
 
         elif col in X_numerical.columns:  # Autres colonnes numériques
             value = st.number_input(f"Entrez une valeur pour {col}", value=0.0)
@@ -106,8 +118,6 @@ if uploaded_file is not None:
 
     # Effectuer une prédiction pour de nouvelles données
     if st.button("Faire une prédiction"):
-        # Vérifier que new_data a la bonne taille et les bonnes valeurs
-        st.write(f"Valeurs saisies : {new_data}")
         st.write(f"Taille attendue : {len(X_numerical.columns)}")
 
         st.write("Colonnes numériques utilisées pour le modèle :")
@@ -125,8 +135,8 @@ if uploaded_file is not None:
 
             # Faire la prédiction
             prediction = model.predict(new_data_pca)
-            satisfaction = "Satisfait" if prediction[0] == 1 else "Non satisfait"
-            st.write(f"Prédiction : {satisfaction}")
+            satisfaction = "Satisfait" if prediction[0] != 0 else "Non satisfait"
+            st.write(f"Prédiction() : {satisfaction}")
         else:
             st.error(
                 f"Erreur : Les données saisies ne correspondent pas au format attendu ({len(X_numerical.columns)} colonnes)")

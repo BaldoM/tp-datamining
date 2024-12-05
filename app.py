@@ -61,7 +61,7 @@ if uploaded_file is not None:
 
     # Sélection des variables et modélisation pour les prédictions
     st.sidebar.header('Sélection des variables')
-    target_variable = st.sidebar.selectbox("Sélectionner la variable cible (Satisfaction)", data.columns)
+    target_variable = st.sidebar.selectbox("Sélectionner la variable cible (Satisfaction)", data.columns.drop(['DERNIER_AVACEMENT_EN_GRADE', 'DATENAISSA', 'DATEENGAGE']))
 
     # Sélectionner les variables explicatives
     X = data.drop(columns=[target_variable])

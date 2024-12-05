@@ -61,7 +61,8 @@ if uploaded_file is not None:
 
     # Sélection des variables et modélisation pour les prédictions
     st.sidebar.header('Sélection des variables')
-    target_variable = st.sidebar.selectbox("Sélectionner la variable cible (Satisfaction)", data.columns.drop(['DERNIER_AVACEMENT_EN_GRADE', 'DATENAISSA', 'DATEENGAGE']))
+    target_variable = st.sidebar.selectbox("Sélectionner la variable cible (Satisfaction)", data.columns.drop(
+        ['DERNIER_AVACEMENT_EN_GRADE', 'DATENAISSA', 'DATEENGAGE']))
 
     # Sélectionner les variables explicatives
     X = data.drop(columns=[target_variable])
@@ -163,8 +164,8 @@ if uploaded_file is not None:
                 satisfaction = "Satisfait" if prediction[0] == 1 else "Non satisfait"
             else:
                 # Si la variable cible est une échelle de satisfaction (par exemple, de 1 à 5)
-                # Contraindre la prédiction à la plage 1 à 5
-                predicted_score = max(1, min(5, int(prediction[0])))  # S'assurer que la prédiction est entre 1 et 5
+                # Contraindre la prédiction à la plage 1 - 5
+                predicted_score = max(1, min(5, int(prediction[0])))
                 score_mapping = {
                     5: 1,
                     4: 2,
@@ -186,4 +187,4 @@ if uploaded_file is not None:
 
         else:
             st.error(
-                f"Erreur : Les données saisies ne correspondent pas au format attendu ({len(X_numerical.columns)} colonnes).")
+                f"Erreur : Format de données saisies non attendu ({len(X_numerical.columns)} colonnes).")

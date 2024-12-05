@@ -17,10 +17,13 @@ st.sidebar.info(
     """
     ### Instructions :
     1. Téléchargez un fichier Excel contenant vos données.
-    2. Sélectionnez une variable cible (ex. : Satisfaction).
-    3. Visualisez les distributions et les corrélations, puis testez les prédictions.
+    2. Visualisez les distributions et les corrélations, puis testez les prédictions.
     """
 )
+
+# Lien de téléchargement direct du fichier sur GitHub
+download_link = "https://github.com/BaldoM/tp-datamining/raw/refs/heads/main/Donnees_Nettoyees.xlsx"
+st.sidebar.markdown(f"[Télécharger le fichier Excel ici]({download_link})")
 
 # Chargement des données
 st.sidebar.header('Charger les données')
